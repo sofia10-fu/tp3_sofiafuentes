@@ -1,0 +1,44 @@
+@url=http://localhost:3000
+
+### Obtener todos los viajes
+# @name viajes
+GET {{url}}/viajes
+Authorization: Bearer {{token}}
+
+### Crear un nuevo viaje
+# @name viajes
+POST {{url}}/viajes
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "origen": "Ciudad A",
+    "destino": "Ciudad B",
+    "fecha_salida": "2024-07-01T10:00:00Z",
+    "fecha_llegada": "2024-07-01T14:00:00Z",
+    "vehiculo_id": 1,
+    "conductor_id": 1
+}
+
+### Obtener viaje por ID
+GET {{url}}/viajes/1
+Authorization: Bearer {{token}}
+
+### Actualizar un viaje
+PUT {{url}}/viajes/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "origen": "Ciudad A",
+    "destino": "Ciudad C",
+    "fecha_salida": "2024-07-01T10:00:00Z",
+    "fecha_llegada": "2024-07-01T16:00:00Z",
+    "vehiculo_id": 1,
+    "conductor_id": 1,
+    "kilometros": 350
+}
+
+### Eliminar un viaje
+DELETE {{url}}/viajes/1
+Authorization: Bearer {{token}}

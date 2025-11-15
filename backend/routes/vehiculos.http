@@ -1,0 +1,39 @@
+@url=http://localhost:3000
+
+### Obtener todos los vehículos
+GET {{url}}/vehiculos
+Authorization: Bearer {{token}}
+
+### Obtener vehículo por ID
+GET {{url}}/vehiculos/1
+Authorization: Bearer {{token}}
+
+### Crear un nuevo vehículo
+POST {{url}}/vehiculos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+	"marca": "Toyota",
+	"modelo": "Hilux",
+	"patente": "AA123BB",
+	"ano": "2022-01-01",
+	"capacidad_carga": 1500
+}
+
+### Actualizar un vehículo
+PUT {{url}}/vehiculos/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+	"marca": "Toyota",
+	"modelo": "Hilux SRX",
+	"patente": "AA123BB",
+	"ano": "2023-01-01",
+	"capacidad_carga": 1600
+}
+
+### Eliminar un vehículo
+DELETE {{url}}/vehiculos/1
+Authorization: Bearer {{token}}
