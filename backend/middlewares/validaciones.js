@@ -8,7 +8,7 @@ export const verificarValidaciones = (req, res, next) => {
   if (!validacion.isEmpty()) {
     return res.status(400).json({
       success: false,
-      message: "Falla de validacion",
+      message: "Falla de las validacion",
       errores: validacion.array(),
     });
   }
