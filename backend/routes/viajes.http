@@ -1,6 +1,6 @@
 @url=http://localhost:3000
 
-### Obtener todos los viajes
+### Obtener todos los viajes.
 # @name viajes
 GET {{url}}/viajes
 Authorization: Bearer {{token}}
