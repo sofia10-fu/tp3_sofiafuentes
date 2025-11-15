@@ -1,80 +1,80 @@
-import { useEffect, useState } from "react"
-import { useAuth } from "./Auth"
+import { useEffect, useState } from "react";
+import { useAuth } from "./Auth";
 
 export const Vehiculos = () => {
-  const { fetchAuth } = useAuth()
-  const [vehiculos, setVehiculos] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
-  const [showForm, setShowForm] = useState(false)
-  const [editVehiculo, setEditVehiculo] = useState(null)
+  const { fetchAuth } = useAuth();
+  const [vehiculos, setVehiculos] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [showForm, setShowForm] = useState(false);
+  const [editVehiculo, setEditVehiculo] = useState(null);
   const [form, setForm] = useState({
     marca: "",
     modelo: "",
     patente: "",
-    ano: "",
+    anio: "",
     capacidad_carga: "",
-  })
+  });
 
   const fetchVehiculos = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const response = await fetchAuth("http://localhost:3000/vehiculos")
-      const data = await response.json()
+      const response = await fetchAuth("http://localhost:3000/vehiculos");
+      const data = await response.json();
       if (!response.ok)
-        throw new Error(data.message || "Error al obtener vehículos")
-      setVehiculos(data.data)
-      setError(null)
+        throw new Error(data.message || "Error al obtener vehículos");
+      setVehiculos(data.data);
+      setError(null);
     } catch (err) {
-      setError(err.message)
+      setError(err.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchVehiculos()
-  }, [])
+    fetchVehiculos();
+  }, []);
 
   const handleInputChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handleAdd = () => {
     setForm({
       marca: "",
       modelo: "",
       patente: "",
-      ano: "",
+      anio: "",
       capacidad_carga: "",
-    })
-    setEditVehiculo(null)
-    setShowForm(true)
-  }
+    });
+    setEditVehiculo(null);
+    setShowForm(true);
+  };
 
   const handleEdit = (v) => {
     setForm({
       marca: v.marca,
       modelo: v.modelo,
       patente: v.patente,
-      ano: v.ano,
+      anio: v.anio,
       capacidad_carga: v.capacidad_carga,
-    })
-    setEditVehiculo(v)
-    setShowForm(true)
-  }
+    });
+    setEditVehiculo(v);
+    setShowForm(true);
+  };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("¿Seguro que deseas borrar este vehículo?")) return
+    if (!window.confirm("¿Seguro que deseas borrar este vehículo?")) return;
     const response = await fetchAuth(`http://localhost:3000/vehiculos/${id}`, {
       method: "DELETE",
-    })
-    if (response.ok) fetchVehiculos()
-    else alert("Error al borrar vehículo")
-  }
+    });
+    if (response.ok) fetchVehiculos();
+    else alert("Error al borrar vehículo");
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (editVehiculo) {
       const response = await fetchAuth(
         `http://localhost:3000/vehiculos/${editVehiculo.id}`,
@@ -83,27 +83,27 @@ export const Vehiculos = () => {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(form),
         }
-      )
+      );
       if (response.ok) {
-        setShowForm(false)
-        fetchVehiculos()
+        setShowForm(false);
+        fetchVehiculos();
       } else {
-        alert("Error al editar vehículo")
+        alert("Error al editar vehículo");
       }
     } else {
       const response = await fetchAuth("http://localhost:3000/vehiculos", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
-      })
+      });
       if (response.ok) {
-        setShowForm(false)
-        fetchVehiculos()
+        setShowForm(false);
+        fetchVehiculos();
       } else {
-        alert("Error al agregar vehículo")
+        alert("Error al agregar vehículo");
       }
     }
-  }
+  };
 
   return (
     <>
@@ -133,13 +133,14 @@ export const Vehiculos = () => {
                 <td>{v.marca}</td>
                 <td>{v.modelo}</td>
                 <td>{v.patente}</td>
-                <td>{v.ano}</td>
+                <td>{v.anio}</td>
                 <td>{v.capacidad_carga}</td>
                 <td>
                   <button onClick={() => handleEdit(v)}>Editar</button>{" "}
                   <button
                     onClick={() => handleDelete(v.id)}
-                    style={{ color: "red" }}>
+                    style={{ color: "red" }}
+                  >
                     Borrar
                   </button>
                 </td>
@@ -187,8 +188,8 @@ export const Vehiculos = () => {
               <label>
                 Año:
                 <input
-                  name="ano"
-                  value={form.ano}
+                  name="anio"
+                  value={form.anio}
                   onChange={handleInputChange}
                   required
                 />
@@ -206,7 +207,8 @@ export const Vehiculos = () => {
                 <button
                   type="button"
                   className="secondary"
-                  onClick={() => setShowForm(false)}>
+                  onClick={() => setShowForm(false)}
+                >
                   Cancelar
                 </button>
                 <button type="submit">
@@ -218,5 +220,5 @@ export const Vehiculos = () => {
         </dialog>
       )}
     </>
-  )
+  );
 }

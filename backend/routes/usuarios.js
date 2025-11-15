@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
     )
     res.json({ success: true, usuarios })
   } catch (error) {
-    res.status(500).json({ success: false, error: "Error al obtener usuarios" })
+    res.status(500).json({ success: false, error: "Error al obtener  los usuarios" })
   }
 })
 
