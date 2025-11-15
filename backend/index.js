@@ -13,7 +13,7 @@ conectarDB()
 const app = express()
 const port = 3000
 
-// Para interpretar body como JSON
+// Para interpretar body como JSON.
 app.use(express.json())
 
 // Habilito CORS
